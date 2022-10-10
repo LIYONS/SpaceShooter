@@ -24,6 +24,7 @@ public class BulletManager : MonoBehaviour
     {
         if (collision.GetComponent<EnemyManager>())
         {
+            EventHandler.Instance.InvokeEnemyKilled();
             collision.GetComponent<EnemyManager>().Die();
             Destroy(this.gameObject);
         }

@@ -1,30 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class Shooter : MonoBehaviour
+namespace SpaceShooter.Player
 {
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private float nextFireDelay;
-    [SerializeField] private Transform fireTransform;
-
-    private float timer;
-
-    private void Start()
+    public class Shooter : MonoBehaviour
     {
-        timer = nextFireDelay;
-    }
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space) && Time.time>timer )
+        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private float nextFireDelay;
+        [SerializeField] private Transform fireTransform;
+
+        private float timer;
+
+        private void Start()
         {
-            Fire();
-            timer = Time.time + nextFireDelay;
+            timer = nextFireDelay;
         }
-    }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && Time.time > timer)
+            {
+                Fire();
+                timer = Time.time + nextFireDelay;
+            }
+        }
 
-    private void Fire()
-    {
-        Instantiate(bulletPrefab,fireTransform. transform.position, fireTransform. transform.rotation);
+        private void Fire()
+        {
+            Instantiate(bulletPrefab, fireTransform.transform.position, fireTransform.transform.rotation);
+        }
     }
 }

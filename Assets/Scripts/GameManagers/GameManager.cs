@@ -1,20 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+namespace SpaceShooter.GameManagers
 {
-    private void Update()
+    public class GameManager : MonoBehaviour
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        private void Start()
+        {
+            EventHandler.Instance.OnGameOver += OnGameOver;
+        }
+
+        private void OnDisable()
+        {
+            EventHandler.Instance.OnGameOver -= OnGameOver;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RestartGame();
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                QuitGame();
+            }
+        }
+
+        private void OnGameOver()
         {
             RestartGame();
         }
-    }
 
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        public void RestartGame()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }

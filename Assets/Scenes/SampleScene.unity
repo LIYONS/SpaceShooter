@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 603346360723366509, guid: ad671733820f0b24591443f74cb35cc1, type: 3}
-  timeBtwSpawns: 0.3
+  timeBtwSpawns: 0.5
 --- !u!1 &1380311319
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,10 +667,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2928907127293952366, guid: 62b7a2810ee7c7449b6f17ea66c3f90b, type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 1380311320}
     - target: {fileID: 5887456279918930767, guid: 62b7a2810ee7c7449b6f17ea66c3f90b, type: 3}
       propertyPath: m_RootOrder
       value: 1

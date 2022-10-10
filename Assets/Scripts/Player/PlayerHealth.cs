@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayerHealth : MonoBehaviour
+using SpaceShooter.GameManagers;
+namespace SpaceShooter.Player
 {
-    [SerializeField] private GameManager gameManager;
-    public void Die()
+    public class PlayerHealth : MonoBehaviour
     {
-        Destroy(gameObject, .2f);
-        gameManager.RestartGame();
+        public void Die()
+        {
+            EventHandler.Instance.InvokeOnGameover();
+            Destroy(gameObject, .2f);         
+        }
     }
 }

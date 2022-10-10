@@ -1,32 +1,38 @@
 using UnityEngine;
+using SpaceShooter.Enemy;
+using SpaceShooter.GameManagers;
 
-public class BulletManager : MonoBehaviour
+namespace SpaceShooter.Bullet
 {
-    [SerializeField] private float speed;
-
-    private Rigidbody2D rigidBody;
-    private Vector2 screenBounds;
-    private void Awake()
+    public class BulletManager : MonoBehaviour
     {
-        rigidBody = GetComponent<Rigidbody2D>();
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-    }
+        [SerializeField] private float speed;
 
-    private void Update()
-    {
-        if(transform.position.x>screenBounds.x)
+        private Rigidbody2D rigidBody;
+        private Vector2 screenBounds;
+        private void Awake()
         {
-            Destroy(gameObject);
+            rigidBody = GetComponent<Rigidbody2D>();
+            screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         }
-        rigidBody.MovePosition(transform.position + Vector3.right * speed * Time.deltaTime);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<EnemyManager>())
+
+        private void Update()
         {
-            EventHandler.Instance.InvokeEnemyKilled();
-            collision.GetComponent<EnemyManager>().Die();
-            Destroy(this.gameObject);
+            if (transform.position.x > screenBounds.x)
+            {
+                Destroy(gameObject);
+            }
+            rigidBody.MovePosition(transform.position + Vector3.right * speed * Time.deltaTime);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.GetComponent<EnemyManager>())
+            {
+                EventHandler.Instance.InvokeEnemyKilled();
+                collision.GetComponent<EnemyManager>().Die();
+                Destroy(this.gameObject);
+            }
         }
     }
 }

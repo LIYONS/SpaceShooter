@@ -1,29 +1,38 @@
 using System;
 using UnityEngine;
 
-public class EventHandler : MonoBehaviour
+namespace SpaceShooter.GameManagers
 {
-    private static EventHandler instance;
-
-    public static EventHandler Instance { get { return instance; } }
-
-    public event Action OnEnemyKilled;
-
-    private void Awake()
+    public class EventHandler : MonoBehaviour
     {
-        if (instance != null)
+        private static EventHandler instance;
+
+        public static EventHandler Instance { get { return instance; } }
+
+        public event Action OnEnemyKilled;
+
+        public event Action OnGameOver;
+
+        private void Awake()
         {
-            Destroy(this);
+            if (instance != null)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                instance = this;
+            }
         }
-        else
+
+        public void InvokeEnemyKilled()
         {
-            instance = this;
+            OnEnemyKilled?.Invoke();
+        }
+        public void InvokeOnGameover()
+        {
+            OnGameOver?.Invoke();
         }
     }
-
-    public void InvokeEnemyKilled()
-    {
-        OnEnemyKilled?.Invoke();
-    }
-
 }
+

@@ -6,7 +6,9 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyManager enemyPrefab;
     [SerializeField] private float timeBtwSpawns;
+    [SerializeField] private int maxSpawns;
 
+    private int currentEnemies;
     private Vector2 screenBounds;
     private float spawnPointX;
     private float spawnPointY;
@@ -14,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     private Vector3 spawnPoint;
     private void Start()
     {
+        currentEnemies = 0;
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         spawnPointX = transform.position.x;
         timer = timeBtwSpawns;
@@ -21,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if(timer<Time.time)
+        if(timer<Time.time && currentEnemies<maxSpawns)
         {
             SpawnEnemy();
             timer = Time.time + timeBtwSpawns;
@@ -33,5 +36,10 @@ public class EnemySpawner : MonoBehaviour
         spawnPointY = Random.Range(-screenBounds.y, screenBounds.y);
         spawnPoint = new Vector3(spawnPointX, spawnPointY, transform.position.z);
         Instantiate(enemyPrefab, spawnPoint, Quaternion.Euler(Vector3.zero));
+    }
+
+    private void OnEnemyDied()
+    {
+        currentEnemies -= 1;
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SpaceShooter
+namespace SpaceShooter.Player
 {
     public class Boundaries : MonoBehaviour
     {
